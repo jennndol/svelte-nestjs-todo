@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { TodoInterface } from './todo.interface';
 import { Todo } from './dto/todo.dto';
+import { TodoInput } from './todo.input';
 
 @Injectable()
 export class TodosService {
@@ -10,5 +11,10 @@ export class TodosService {
 
     async findAll(): Promise<Todo[]> {
         return await this.todo.find().exec();
+    }
+
+    async create(dto: TodoInput): Promise<Todo> {
+        const createdTodo = new this.todo(dto);
+        return await createdTodo.save();
     }
 }

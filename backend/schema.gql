@@ -11,3 +11,12 @@ type Todo {
 type Query {
   todos: [Todo!]!
 }
+
+type Mutation {
+  createTodo(input: TodoInput!): Todo!
+}
+
+input TodoInput {
+  content: String!
+  isCompleted: Boolean
+}
