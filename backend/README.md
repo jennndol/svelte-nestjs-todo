@@ -34,3 +34,8 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Test Using Graphiql
+
+To test, visit this graphiql link [localhost:3000/graphiql](http://localhost:3000/graphql).
+
+![Graphiql](https://raw.githubusercontent.com/jennndol/todo-app/master/static/create-todo.png "Create Todo Mutation")
