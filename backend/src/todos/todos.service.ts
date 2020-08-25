@@ -15,10 +15,14 @@ export class TodosService {
 
     async findOne(id: string): Promise<Todo> {
         return await this.todo.findOne({ _id: id });
-      }
+    }
 
     async create(dto: TodoInput): Promise<Todo> {
         const createdTodo = new this.todo(dto);
         return await createdTodo.save();
+    }
+
+    async update(id: string, dto: TodoInput): Promise<Todo> {
+        return await this.todo.findByIdAndUpdate(id, dto, { new: true });
     }
 }

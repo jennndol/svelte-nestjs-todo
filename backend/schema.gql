@@ -15,9 +15,10 @@ type Query {
 
 type Mutation {
   createTodo(input: TodoInput!): Todo!
+  updateTodo(input: TodoInput!, id: String!): Todo!
 }
 
 input TodoInput {
-  content: String!
+  content: String
   isCompleted: Boolean
 }
