@@ -26,4 +26,9 @@ export class TodosResolver {
     async updateTodo(@Args('id') id: string, @Args('input') input: TodoInput): Promise<TodoInput> {
         return this.todosService.update(id, input);
     }
+
+    @Mutation(() => String)
+    async deleteTodo(@Args('id') id: string): Promise<string> {
+        return this.todosService.delete(id);
+    }
 }

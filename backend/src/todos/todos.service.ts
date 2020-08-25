@@ -25,4 +25,12 @@ export class TodosService {
     async update(id: string, dto: TodoInput): Promise<Todo> {
         return await this.todo.findByIdAndUpdate(id, dto, { new: true });
     }
+
+    async delete(id: string): Promise<string> {
+        const deletedTodo = await this.todo.deleteOne({_id: id});
+        if (deletedTodo.ok){
+            return 'OK'
+        }
+        return 'Not OK'
+    }
 }
