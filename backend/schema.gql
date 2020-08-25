@@ -10,6 +10,7 @@ type Todo {
 
 type Query {
   todos: [Todo!]!
+  todo(id: String!): Todo!
 }
 
 type Mutation {

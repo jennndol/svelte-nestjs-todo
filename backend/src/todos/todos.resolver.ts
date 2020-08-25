@@ -12,6 +12,11 @@ export class TodosResolver {
         return this.todosService.findAll();
     }
 
+    @Query(() => Todo)
+    async todo(@Args('id') id: string): Promise<Todo> {
+        return this.todosService.findOne(id);
+    }
+
     @Mutation(() => Todo)
     async createTodo(@Args('input') input: TodoInput): Promise<TodoInput> {
         return this.todosService.create(input);

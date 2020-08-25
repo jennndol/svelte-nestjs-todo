@@ -13,6 +13,10 @@ export class TodosService {
         return await this.todo.find().exec();
     }
 
+    async findOne(id: string): Promise<Todo> {
+        return await this.todo.findOne({ _id: id });
+      }
+
     async create(dto: TodoInput): Promise<Todo> {
         const createdTodo = new this.todo(dto);
         return await createdTodo.save();
