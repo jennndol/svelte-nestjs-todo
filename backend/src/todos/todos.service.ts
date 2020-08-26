@@ -7,7 +7,7 @@ import { TodoInput } from './todo.input';
 
 @Injectable()
 export class TodosService {
-    constructor(@InjectModel('TodoInterface') private todo: Model<TodoInterface>) {}
+    constructor(@InjectModel('Todo') private todo: Model<TodoInterface>) {}
 
     async findAll(): Promise<Todo[]> {
         return await this.todo.find().exec();
