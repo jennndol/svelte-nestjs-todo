@@ -2,11 +2,13 @@
   "version": 3,
   "file": "bundle.css",
   "sources": [
-    "../../App.svelte"
+    "../../Create.svelte",
+    "../../Todos.svelte"
   ],
   "sourcesContent": [
-    "<script>\n\texport let name;\n</script>\n\n<main>\n\t<h1>Hello {name}!</h1>\n\t<p>Visit the <a href=\"https://svelte.dev/tutorial\">Svelte tutorial</a> to learn how to build Svelte apps.</p>\n</main>\n\n<style>\n\tmain {\n\t\ttext-align: center;\n\t\tpadding: 1em;\n\t\tmax-width: 240px;\n\t\tmargin: 0 auto;\n\t}\n\n\th1 {\n\t\tcolor: #ff3e00;\n\t\ttext-transform: uppercase;\n\t\tfont-size: 4em;\n\t\tfont-weight: 100;\n\t}\n\n\t@media (min-width: 640px) {\n\t\tmain {\n\t\t\tmax-width: none;\n\t\t}\n\t}\n</style>"
+    "<script>\n    import { getClient, mutate } from \"svelte-apollo\";\n\timport { ADD_TODO } from '../queries';\n\n    let newTask = '';\n    \n    async function createTodo(e){\n        e.preventDefault();\n\t    const client = getClient();\n        await mutate(client, { mutation: ADD_TODO, variables: {\n            content: newTask\n        }});\n        window.location.href = \"/\";\n    }\n\n</script>\n\n<div class=\"container\">\n    <form class=\"form-inline\">\n        <div class=\"form-group mb-2 mt-2\">\n            <label for=\"content\" class=\"sr-only\">Task</label>\n            <input bind:value={newTask} type=\"text\" class=\"form-control\" id=\"idContent\" placeholder=\"Task\">\n        </div>\n        <button type=\"submit\" class=\"btn btn-success mb-2 mt-2 ml-2\" on:click={(e) => createTodo(e)}>Add</button>\n    </form>\n</div>\n\n<style>\n    .container{\n        display: flex;\n        justify-content: center;\n    }\n</style>",
+    "<script>\n\timport { getClient, query } from \"svelte-apollo\";\n\timport { GET_TODOS } from '../queries';\n\n\tconst client = getClient();\n\n\tfunction getTodos(){\n\t\treturn query(client, { query: GET_TODOS });\n\t}\n\n\tconst todos = getTodos();\n</script>\n\n<div class=\"container\">\n\t<ul class=\"list-group\">\n\t\t{#await $todos}\n\t\t\tLoading...\n\t\t{:then result}\n\t\t{#each result.data.todos as todo}\n\t\t\t<li class=\"list-group-item list-group-item-action\" >{todo.content}</li>\n\t\t{/each}\n\t\t{:catch error}\n\t\t\tError: {error}\n\t\t{/await}\n\t</ul>\n</div>\n\n<style>\n\t.container{\n\t\tmax-height: calc(100vh - 110px);\n        overflow-x: scroll;\n\t}\n</style>"
   ],
   "names": [],
-  "mappings": "AAUC,IAAI,eAAC,CAAC,AACL,UAAU,CAAE,MAAM,CAClB,OAAO,CAAE,GAAG,CACZ,SAAS,CAAE,KAAK,CAChB,MAAM,CAAE,CAAC,CAAC,IAAI,AACf,CAAC,AAED,EAAE,eAAC,CAAC,AACH,KAAK,CAAE,OAAO,CACd,cAAc,CAAE,SAAS,CACzB,SAAS,CAAE,GAAG,CACd,WAAW,CAAE,GAAG,AACjB,CAAC,AAED,MAAM,AAAC,YAAY,KAAK,CAAC,AAAC,CAAC,AAC1B,IAAI,eAAC,CAAC,AACL,SAAS,CAAE,IAAI,AAChB,CAAC,AACF,CAAC"
+  "mappings": "AA4BI,wBAAU,CAAC,AACP,OAAO,CAAE,IAAI,CACb,eAAe,CAAE,MAAM,AAC3B,CAAC;ACHJ,yBAAU,CAAC,AACV,UAAU,CAAE,KAAK,KAAK,CAAC,CAAC,CAAC,KAAK,CAAC,CACzB,UAAU,CAAE,MAAM,AACzB,CAAC"
 }
