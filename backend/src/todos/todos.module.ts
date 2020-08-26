@@ -6,7 +6,7 @@ import { TodoSchema } from './todo.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'TodoInterface', schema: TodoSchema }])
+    MongooseModule.forFeature([{ name: 'Todo', schema: TodoSchema }])
   ],
   providers: [TodosService, TodosResolver]
 })
