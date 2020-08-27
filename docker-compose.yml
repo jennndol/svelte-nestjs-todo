@@ -1,0 +1,33 @@
+version: '3'
+services: 
+    backend:
+        container_name: backend
+        build: ./backend
+        restart: always
+        ports: 
+            - 3000:3000
+        volumes:
+            - ./backend/node_modules:/app/node_modules
+            - ./backend/src:/app/src
+            - ./backend/test:/app/test
+            - ./backend/.env:/app/.env
+        depends_on:
+            - mongo
+        
+    frontend:
+        container_name: frontend
+        build: ./frontend
+        restart: always
+        ports: 
+            - 5000:5000
+        volumes:
+            - ./frontend/node_modules:/var/www/node_modules
+            - ./frontend/src:/var/www/src
+            - ./frontend/test:/var/www/test
+
+    mongo:
+        container_name: mongo
+        image: mongo
+        ports: 
+            - 27017:27017
+        
